@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neha's Birthday Surprise</title>
+<style>
+body { background: #0b1020; color: #fff; font-family: 'Times New Roman', serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin:0; text-align:center; overflow: hidden; }
+h1 { font-size: 3em; color: #ff6b6b; }
+p { font-size: 1.5em; margin: 10px 0; }
+.cake { width: 150px; height: 150px; margin: 10px; background: linear-gradient(180deg,#ffdede,#ffd1d1); border-radius: 12px; display: flex; align-items:center; justify-content:center; font-weight:bold; color:#5b1a1a; font-size: 2.5em; display:inline-block; }
+.balloon { position: absolute; width: 40px; height: 60px; border-radius: 50% 50% 50% 50%; background: radial-gradient(circle at 35% 30%, #ff6b6b, #ff4757); animation: floatUp 5s linear infinite; }
+@keyframes floatUp { 0% { transform: translateY(100vh); } 100% { transform: translateY(-100px); } }
+.firework { position: absolute; width: 5px; height: 5px; border-radius: 50%; animation: explode 1s ease-out forwards; }
+@keyframes explode { 0% { transform: scale(1); opacity:1; } 100% { transform: scale(8); opacity:0; } }
+</style>
+</head>
+<body>
+<h1>Happy 27th Birthday, Neha! 🎉</h1>
+<p>Thou came, and light adorned each fleeting day,<br>
+With laughter bright, thou chased the gloom away.<br>
+May this thy birthday bring sweet joys untold,<br>
+And ever fill thy life with love as gold. <strong>— Suraj</strong></p>
+<div id="cakes">
+  <div class="cake">🎂</div>
+  <div class="cake">🎂</div>
+  <div class="cake">🎂</div>
+</div>
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto"></audio>
+<script>
+const music = document.getElementById('music');
+
+function confettiBurst(){
+    for(let i=0;i<150;i++){
+        let conf = document.createElement('div');
+        conf.style.width = conf.style.height = Math.random()*8 + 'px';
+        conf.style.background = `hsl(${Math.random()*360},70%,60%)`;
+        conf.style.position = 'absolute';
+        conf.style.left = Math.random()*window.innerWidth + 'px';
+        conf.style.top = Math.random()*window.innerHeight + 'px';
+        conf.style.borderRadius = '50%';
+        conf.style.animation = `fall ${2+Math.random()*3}s linear forwards`; 
+        conf.style.opacity = 0.8;
+        document.body.appendChild(conf);
+        setTimeout(()=>{ conf.remove(); },4000);
+    }
+}
+
+function createBalloons(){
+    for(let i=0;i<10;i++){
+        let balloon = document.createElement('div');
+        balloon.className='balloon';
+        balloon.style.left = Math.random()*window.innerWidth+'px';
+        balloon.style.background = `hsl(${Math.random()*360},80%,70%)`;
+        document.body.appendChild(balloon);
+        setTimeout(()=>{ balloon.remove(); },5000+Math.random()*3000);
+    }
+}
+
+function fireworkBlast(){
+    for(let i=0;i<50;i++){
+        let fw = document.createElement('div');
+        fw.className='firework';
+        fw.style.left = (window.innerWidth/2 + (Math.random()-0.5)*200) + 'px';
+        fw.style.top = (window.innerHeight/2 + (Math.random()-0.5)*200) + 'px';
+        fw.style.background = `hsl(${Math.random()*360},80%,60%)`;
+        document.body.appendChild(fw);
+        setTimeout(()=>{ fw.remove(); },1000);
+    }
+}
+
+window.onload = function(){
+    music.play();
+    confettiBurst();
+    createBalloons();
+    setInterval(fireworkBlast, 1500);
+}
+</script>
+</body>
+</html>
